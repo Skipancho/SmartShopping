@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/rUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="10dp"
+        android:background="#ffffff"
+        android:text="작성자" />
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingLeft="10dp"
+        android:background="#ffffff"
+        android:text="★★★★★" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="댓글 내용"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:id="@+id/rtext"
+        android:textStyle="bold"
+        android:background="#ffffff"/>
+
+    <TextView
+        android:id="@+id/rDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:background="#ffffff"
+        android:paddingLeft="10dp"
+        android:text="2020-7-22" />
+
+</LinearLayout>

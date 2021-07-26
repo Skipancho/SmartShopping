@@ -1,0 +1,303 @@
+package com.smartshopping;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.sql.Blob;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
+
+public class MainActivity extends AppCompatActivity {
+    public static Activity main;
+    public static User user;
+    private BottomNavigationView b_navi;
+    private List<SearchProduct> searchList = new ArrayList<>();
+    private ListView search_lv;
+    private GridView search_gv;
+    private String searchText="";
+    public static List<Product_Item> productList;
+    public static List<Product_Item> checkList;
+    private EditText search_edit;
+    private GridAdapter gridAdapter;
+    private Search_ProductAdapter listAdapter;
+    private LinearLayout main_layout;
+    private RelativeLayout fragment;
+    private TextView header_text;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        user = new User(getIntent().getStringExtra("userID"),getIntent().getStringExtra("phoneNum"),getIntent().getStringExtra("name"),getIntent().getStringExtra("nickName"));
+        main = MainActivity.this;
+        productList = new ArrayList<>();
+        checkList = new ArrayList<>();
+        checkList = getList("checkList");
+        productList = getList("cartList");
+
+        header_text =findViewById(R.id.header_text);
+        main_layout = findViewById(R.id.main_layout);
+        fragment = findViewById(R.id.fragment);
+        b_navi = findViewById(R.id.bottomNavi);
+        search_edit = findViewById(R.id.search_edit);
+        search_gv = findViewById(R.id.search_grid);
+        search_lv = findViewById(R.id.search_list);
+
+        gridAdapter = new GridAdapter(MainActivity.this,searchList);
+        listAdapter = new Search_ProductAdapter(MainActivity.this,searchList);
+
+        search_gv.setAdapter(gridAdapter);
+        search_lv.setAdapter(listAdapter);
+
+        search_gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this,ProductPop.class);
+                String searchText = searchList.get(i).getpCode();
+                if(searchText.equals("")){
+                    return;
+                }else{
+                    intent.putExtra("searchText",searchText);
+                    intent.putExtra("mode","check");
+                    MainActivity.this.startActivity(intent);
+                }
+            }
+        });
+
+        Button search_btn = findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchText = search_edit.getText().toString();
+                searchList.clear();
+                new ProductSearching().execute();
+                search_edit.setText("");
+            }
+        });
+
+        new ProductSearching().execute();
+
+        findViewById(R.id.mypage_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.this.startActivity(new Intent(MainActivity.this,MyPageActivity.class));
+            }
+        });
+
+        findViewById(R.id.to_grid_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_lv.setVisibility(View.GONE);
+                search_gv.setVisibility(View.VISIBLE);
+            }
+        });
+        findViewById(R.id.to_list_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_gv.setVisibility(View.GONE);
+                search_lv.setVisibility(View.VISIBLE);
+            }
+        });
+
+        b_navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+                switch (menuItem.getItemId()){
+                    case R.id.tab1:{
+                        header_text.setText("스마트 장보기");
+                        fragment.setVisibility(View.GONE);
+                        main_layout.setVisibility(View.VISIBLE);
+                        return true;
+                    }
+                    case R.id.tab2:{
+                        header_text.setText("장바구니");
+                        main_layout.setVisibility(View.GONE);
+                        fragment.setVisibility(View.VISIBLE);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment,new Cart_list_Fragment());
+                        fragmentTransaction.commit();
+                        return true;
+                    }
+                    case R.id.tab3:{
+                        header_text.setText("상품 인식");
+                        main_layout.setVisibility(View.GONE);
+                        fragment.setVisibility(View.VISIBLE);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment,new CameraFragment());
+                        fragmentTransaction.commit();
+                        return true;
+                    }
+                    case R.id.tab4:{
+                        header_text.setText("체크리스트");
+                        main_layout.setVisibility(View.GONE);
+                        fragment.setVisibility(View.VISIBLE);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment,new Check_list_Fragment());
+                        fragmentTransaction.commit();
+                        return true;
+                    }
+                    case R.id.tab5:{
+                        header_text.setText("리뷰 관리");
+                        main_layout.setVisibility(View.GONE);
+                        fragment.setVisibility(View.VISIBLE);
+                        FragmentManager fragmentManager = getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.fragment,new ReviewManagement());
+                        fragmentTransaction.commit();
+                        return true;
+                    }
+                    default:return false;
+                }
+            }
+        });
+
+    }
+    public  void setList(String key, List<Product_Item> productList){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = preferences.edit();
+        JSONArray jsonArray = new JSONArray();
+        Gson gson = new GsonBuilder().create();
+        for(int i = 0; i < productList.size();i++){
+            String string = gson.toJson(productList.get(i),Product_Item.class);
+            jsonArray.put(string);
+        }
+        if(!productList.isEmpty()){
+            editor.putString(key,jsonArray.toString()).commit();
+            //System.out.println(jsonArray.toString());
+        }else {
+            editor.putString(key,null).commit();
+            //System.out.println(jsonArray.toString());
+        }
+    }
+    public  List<Product_Item> getList(String key){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String json = preferences.getString(key,null);
+        List<Product_Item> list = new ArrayList<>();
+        Gson gson = new GsonBuilder().create();
+        if(json != null){
+            try {
+                JSONArray jsonArray = new JSONArray(json);
+                for(int i = 0; i<jsonArray.length();i++){
+                    Product_Item p = gson.fromJson(jsonArray.get(i).toString(), Product_Item.class);
+                    list.add(p);
+                }
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    class ProductSearching extends AsyncTask<Void,Void,String> {
+
+        String target;
+        @Override
+        protected void onPreExecute(){
+            try {
+                target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=pName&searchText="+ URLEncoder.encode(searchText,"UTF-8");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        @Override
+        protected String doInBackground(Void... voids) {
+            try{
+                URL url = new URL(target);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection) url.openConnection();
+                InputStream inputStream = httpsURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                String temp;
+                StringBuilder stringBuilder = new StringBuilder();
+                while ((temp=bufferedReader.readLine()) != null){
+                    stringBuilder.append(temp+"\n");
+                }
+                bufferedReader.close();
+                inputStream.close();
+                httpsURLConnection.disconnect();
+                return stringBuilder.toString().trim();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        public void onProgressUpdate(Void... values){
+            super.onProgressUpdate();
+        }
+        @Override
+        public void onPostExecute(String result){
+            try{
+                String pCode, pName, info;
+                int price,amount;
+                int count = 0;
+                JSONObject jsonObject = new JSONObject(result);
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+                while(count<jsonArray.length()){
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    pCode = object.getString("pCode");
+                    pName = object.getString("pName");
+                    info = object.getString("info");
+                    price = object.getInt("price");
+                    amount = object.getInt("amount");
+                    SearchProduct p = new SearchProduct(pCode,pName,price,amount,info);
+                    searchList.add(p);
+                    listAdapter.notifyDataSetChanged();
+                    gridAdapter.notifyDataSetChanged();
+                    count++;
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    private long lastTimeBackPressed;
+    @Override
+    public void onBackPressed(){
+        if(System.currentTimeMillis()-lastTimeBackPressed<1500){
+            finish();
+            return;
+        }
+        Toast.makeText(this,"뒤로가기를 한 번 더 눌러 종료합니다.",Toast.LENGTH_SHORT).show();
+        lastTimeBackPressed = System.currentTimeMillis();
+    }
+}

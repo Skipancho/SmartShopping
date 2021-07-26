@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FindPwActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="비밀번호 찾기"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/empty_shape_line"
+            android:drawableStart="@drawable/ic_baseline_face_24"
+            android:drawableLeft="@drawable/ic_baseline_face_24"
+            android:hint=" 이름"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/phoneNo_edit"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/empty_shape_line"
+            android:drawableStart="@drawable/ic_baseline_phone_android_24"
+            android:drawableLeft="@drawable/ic_baseline_phone_android_24"
+            android:hint=" 전화번호( - 없이)"
+            android:padding="10dp"/>
+
+        <EditText
+            android:id="@+id/id_edit"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/empty_shape_line"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawableLeft="@drawable/ic_baseline_person_24"
+            android:hint=" 아이디"
+            android:padding="10dp" />
+        <Spinner
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:id="@+id/mySpinner">
+        </Spinner>
+        <EditText
+            android:id="@+id/answer_edit"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/empty_shape_line"
+            android:drawableStart="@drawable/ic_baseline_question_answer_24"
+            android:drawableLeft="@drawable/ic_baseline_question_answer_24"
+            android:hint=" 답변"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#000000" />
+
+        <Button
+            android:id="@+id/find_pw_btn"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:text="비밀번호 찾기"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:background="@drawable/empty_shape_line" />
+    </LinearLayout>
+
+</LinearLayout>
