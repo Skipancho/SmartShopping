@@ -163,7 +163,7 @@ public class MonthlyStatisticsActivity extends AppCompatActivity {
         barDataSet.setColors(ColorTemplate.LIBERTY_COLORS);
         barChart.setData(barData);
         barChart.setDescription("");
-        barChart.animateXY(1000,1000);
+        barChart.animateXY(1000,2000);
         barChart.invalidate();
         TextView stat_text = findViewById(R.id.stat_text);
         int sum = 0;

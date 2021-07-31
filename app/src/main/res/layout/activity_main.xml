@@ -59,7 +59,7 @@
             android:drawableStart="@drawable/ic_baseline_search_24"
             android:drawableLeft="@drawable/ic_baseline_search_24"
             android:padding="10dp"
-            android:hint="검색할 상품을 입력하세요."/>
+            android:hint="상품의 이름을 입력하세요."/>
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="wrap_content"
@@ -88,7 +88,6 @@
         </LinearLayout>
 
         <GridView
-            android:visibility="gone"
             android:id="@+id/search_grid"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -99,6 +98,7 @@
             android:verticalSpacing="10dp"
             />
         <ListView
+            android:visibility="gone"
             android:id="@+id/search_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
