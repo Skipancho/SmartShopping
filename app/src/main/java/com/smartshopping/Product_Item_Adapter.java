@@ -52,7 +52,7 @@ public class Product_Item_Adapter extends BaseAdapter {
 
         nameText.setText(productList.get(i).getpName());
         priceText.setText(productList.get(i).getPrice()+"원");
-        amountText.setText("수량 : "+productList.get(i).getAmount());
+        amountText.setText(String.valueOf(productList.get(i).getAmount()));
         nameText.setSelected(true);
 
         final Product_Item p = productList.get(i);
@@ -85,7 +85,7 @@ public class Product_Item_Adapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 productList.get(i).setAmount(productList.get(i).getAmount()+1);
-                amountText.setText("수량 : "+productList.get(i).getAmount());
+                amountText.setText(""+productList.get(i).getAmount());
                 if(p.getWhere().equals("check")){
                     setList("checkList", productList);
                     Check_list_Fragment.totalCal_check();
@@ -103,7 +103,7 @@ public class Product_Item_Adapter extends BaseAdapter {
                 int amount = productList.get(i).getAmount();
                 if(amount>=2){
                     productList.get(i).setAmount(productList.get(i).getAmount()-1);
-                    amountText.setText("수량 : "+productList.get(i).getAmount());
+                    amountText.setText(""+productList.get(i).getAmount());
                 }else {
                     productList.remove(i);
                     notifyDataSetChanged();

@@ -46,6 +46,9 @@ public class ReviewAdapter extends BaseAdapter {
         for(int j = 0; j < reviewList.get(i).getScore(); j++){
             star += "★";
         }
+        for(int j = 0; j < 5-reviewList.get(i).getScore() ; j++){
+            star += "☆";
+        }
         scoreText.setText(star);
         v.setTag(reviewList.get(i).getText());
         return v;

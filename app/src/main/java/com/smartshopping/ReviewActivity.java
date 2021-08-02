@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class ReviewActivity extends AppCompatActivity {
     private TextView txt_length;
     private int pkey;
     private boolean isCreated = true;
+    private CheckBox agree_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +41,14 @@ public class ReviewActivity extends AppCompatActivity {
         pCode = getIntent().getStringExtra("pCode");
         pName = getIntent().getStringExtra("pName");
         pkey = getIntent().getIntExtra("pkey",-1);
-        System.out.println("pkey : "+pkey);
         spinner = (Spinner) findViewById(R.id.mySpinner);
-        adapter = ArrayAdapter.createFromResource(this,R.array.score,android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        agree_check = findViewById(R.id.agree_check);
         review_edit = findViewById(R.id.reviewText);
         TextView pNameText = findViewById(R.id.pName);
+
+        adapter = ArrayAdapter.createFromResource(this,R.array.score,android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+
         pNameText.setText(pName);
         findViewById(R.id.finishBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +56,7 @@ public class ReviewActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         Button reviewBtn = findViewById(R.id.reviewBtn);
         reviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +65,9 @@ public class ReviewActivity extends AppCompatActivity {
                 String rText = review_edit.getText().toString();
                 if(rText.equals("")){
                     Toast.makeText(ReviewActivity.this,"리뷰를 작성해 주세요.",Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(!agree_check.isChecked()){
+                    Toast.makeText(ReviewActivity.this,"리뷰 사용에 동의해 주세요.",Toast.LENGTH_SHORT).show();
                     return;
                 }else{
                     if(isCreated){
@@ -135,10 +143,6 @@ public class ReviewActivity extends AppCompatActivity {
         }
 
         int score = scoreStr.length();
-        long now = System.currentTimeMillis();
-        Date date = new Date(now);
-        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String rDate = mFormat.format(date);
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -154,7 +158,7 @@ public class ReviewActivity extends AppCompatActivity {
                 }
             }
         };
-        ReviewUpdateRequest request = new ReviewUpdateRequest(rId,score,rText,rDate,responseListener);
+        ReviewUpdateRequest request = new ReviewUpdateRequest(rId,score,rText,responseListener);
         RequestQueue queue = Volley.newRequestQueue(ReviewActivity.this);
         queue.add(request);
     }

@@ -2,25 +2,24 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/empty_shape_line"
+    android:padding="5dp"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/rUser"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingLeft="10dp"
-        android:background="#ffffff"
-        android:text="작성자" />
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingLeft="10dp"
-        android:background="#ffffff"
-        android:text="★★★★★" />
-
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:textSize="20dp"
+            android:text="★★★★★" />
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,16 +27,29 @@
         android:layout_gravity="center"
         android:padding="10dp"
         android:id="@+id/rtext"
-        android:textStyle="bold"
-        android:background="#ffffff"/>
-
-    <TextView
-        android:id="@+id/rDate"
+        android:textStyle="bold"/>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:background="#ffffff"
-        android:paddingLeft="10dp"
-        android:text="2020-7-22" />
-
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/rUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="작성자" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="|"
+            android:paddingLeft="10dp"/>
+        <TextView
+            android:id="@+id/rDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="2020-7-22" />
+    </LinearLayout>
 </LinearLayout>

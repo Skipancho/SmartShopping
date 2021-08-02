@@ -15,8 +15,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="지출 통계 (월별 분석)"
+            android:text="지출 통계 (연간)"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:padding="10dp"/>

@@ -15,17 +15,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="지출 통계"
+            android:text="지출 통계 (월간)"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:padding="10dp"/>
     </LinearLayout>
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -84,6 +80,26 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorGray"/>
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/pieChart"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="유형별 지출액"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_gravity="center"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"/>
     <ListView
         android:id="@+id/typeList"
         android:layout_width="match_parent"
@@ -101,7 +117,4 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="월별 분석"/>
-
-
-
 </LinearLayout>

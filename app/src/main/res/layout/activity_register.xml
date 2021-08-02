@@ -20,15 +20,19 @@
             android:padding="5dp"/>
 
     </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="50dp"
             android:layout_gravity="center"
             >
 
@@ -85,7 +89,9 @@
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="패스워드가 일치하지 않습니다." />
+            android:text="※ 패스워드가 일치하지 않습니다."
+            android:visibility="invisible"
+            android:textColor="@color/colorWarning"/>
 
         <EditText
             android:id="@+id/nameText"
@@ -166,6 +172,11 @@
             android:padding="10dp"
             android:textColor="#000000"
             android:textColorHint="#000000" />
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="비밀번호 찾기 시 사용될 답변입니다."/>
 
         <Button
             android:layout_width="280dp"
@@ -179,5 +190,6 @@
             android:id="@+id/registerBtn"/>
 
     </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

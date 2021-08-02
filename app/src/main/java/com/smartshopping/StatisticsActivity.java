@@ -187,7 +187,7 @@ public class StatisticsActivity extends AppCompatActivity {
             dataVal.add(new Entry((float) rate, i++));
             labels.add(p.type);
         }
-        PieDataSet pieDataSet = new PieDataSet(dataVal,"지출 유형");
+        PieDataSet pieDataSet = new PieDataSet(dataVal,"");
         pieDataSet.setColors(colorArray);
         PieData pieData = new PieData(labels,pieDataSet);
         pieChart.setUsePercentValues(true);
@@ -197,6 +197,7 @@ public class StatisticsActivity extends AppCompatActivity {
         pieChart.setHoleRadius(30);
         pieChart.setData(pieData);
         pieChart.animateXY(1000,1000);
+        pieChart.setDescription("");
         pieChart.invalidate();
     }
     class PurData{
@@ -236,7 +237,7 @@ public class StatisticsActivity extends AppCompatActivity {
             TextView spendText = v.findViewById(R.id.spend);
 
             typeText.setText(purDataList.get(i).type);
-            spendText.setText(": "+purDataList.get(i).price+" 원");
+            spendText.setText(purDataList.get(i).price+" (원)");
 
             return v;
         }

@@ -39,7 +39,7 @@ public class ProductPop extends AppCompatActivity {
     private List<Product_Item> products;
     private Product_Item product;
     private String searchText;
-    private TextView pNameText,pPriceText,pAmoutText,pInfoText;
+    private TextView pNameText,pPriceText,pAmoutText,pInfoText , no_reivew_text;
     private List<Review_Product> reviewList = new ArrayList<>();
     private ReviewAdapter adapter;
     private ListView reviewListView;
@@ -60,6 +60,7 @@ public class ProductPop extends AppCompatActivity {
         pInfoText = findViewById(R.id.p_info);
         pInfoText.setMovementMethod(new ScrollingMovementMethod());
         reviewListView = findViewById(R.id.reviewList);
+        no_reivew_text = findViewById(R.id.no_review_text);
 
         pNameText.setSelected(true);
 
@@ -219,6 +220,11 @@ public class ProductPop extends AppCompatActivity {
 
                     adapter.notifyDataSetChanged();
                     count++;
+                }
+                if(count == 0){
+                    no_reivew_text.setVisibility(View.VISIBLE);
+                }else{
+                    no_reivew_text.setVisibility(View.INVISIBLE);
                 }
             }catch (Exception e){
                 e.printStackTrace();

@@ -30,7 +30,7 @@
             android:id="@+id/bDateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="   구매일     "
+            android:text="    구매일     "
             android:padding="5dp"/>
         <TextView
             android:id="@+id/pNameText"

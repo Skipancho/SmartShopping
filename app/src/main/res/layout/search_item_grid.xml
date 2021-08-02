@@ -17,6 +17,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="상품명"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@android:color/black"
         android:layout_gravity="center"/>
     <TextView

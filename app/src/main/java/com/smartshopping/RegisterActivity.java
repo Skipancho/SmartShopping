@@ -76,13 +76,19 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                pw_msg.setVisibility(View.VISIBLE);
                 String pw = passwordText.getText().toString();
                 String pwC = pwChecker.getText().toString();
                 if(pw.equals(pwC)){
-                    pw_msg.setText("");
+                    pw_msg.setText("※ 패스워드가 일치합니다.");
+                    pw_msg.setTextColor(getResources().getColor(R.color.green));
                     pwCheck = true;
+                }else if(pwC.equals("")){
+                    pw_msg.setVisibility(View.INVISIBLE);
+                    pwCheck = false;
                 }else{
-                    pw_msg.setText("패스워드가 일치하지 않습니다.");
+                    pw_msg.setText("※ 패스워드가 일치하지 않습니다.");
+                    pw_msg.setTextColor(getResources().getColor(R.color.colorWarning));
                     pwCheck = false;
                 }
             }
