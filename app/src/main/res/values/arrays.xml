@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name = "PWask">
+        <item>(질문을 고르세요.)</item>
         <item>좋아하는 동물은?</item>
         <item>존경하는 위인은?</item>
         <item>좋아하는 음식은?</item>

@@ -54,25 +54,24 @@
         android:padding="15dp"
         android:background="@drawable/empty_shape_line"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="다음의 문자열을 입력해 주세요."/>
-        <TextView
-            android:id="@+id/random_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="회원 탈퇴"
-            android:padding="10dp"
-            android:textColor="#FFFFFF"
-            android:background="#000000"/>
         <EditText
-            android:id="@+id/check_text"
+            android:id="@+id/pw_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@drawable/red_shape_no_line"
+            android:drawableStart="@drawable/ic_baseline_lock_24"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
+            android:drawablePadding="5dp"
+            android:inputType="textPassword"
+            android:hint="비밀번호를 입력해주세요"
+            android:textColorHint="#ffffff"
+            android:textStyle="bold"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:padding="10dp"
-            android:hint="위의 문자열을 입력해주세요"/>
+            android:text="비밀번호 입력 후 아래의 버튼을 누르면 회원 탈퇴가 완료됩니다."/>
 
     </LinearLayout>
     <LinearLayout

@@ -60,6 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="이름"
+            android:lines="1"
+            android:singleLine="true"
             android:gravity="center"
             android:padding="5dp" />
     </LinearLayout>
@@ -106,6 +108,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="닉네임"
+            android:lines="1"
+            android:singleLine="true"
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:padding="5dp" />

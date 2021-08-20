@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -20,30 +19,27 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-import java.util.Random;
 
 public class WithdrawalActivity extends AppCompatActivity {
     private MainActivity mainA = (MainActivity)MainActivity.main;
     private MyPageActivity myPageA = (MyPageActivity)MyPageActivity.mypage;
     private User user = MainActivity.user;
-    private String rndmStr;
-    private EditText check_edit;
+    private EditText pw_edit;
     private CheckBox checkBox;
     private AlertDialog dialog;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_withdrawal);
-        rndmStr = MakeRandomStr(6);
+
         checkBox = findViewById(R.id.check_box);
-        check_edit = findViewById(R.id.check_text);
-        TextView random_text = findViewById(R.id.random_text);
-        random_text.setText(rndmStr);
+        pw_edit = findViewById(R.id.pw_edit);
+
         findViewById(R.id.withdrawal_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String pw = pw_edit.getText().toString();
                 if(!checkBox.isChecked()){
                     AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawalActivity.this);
                     dialog = builder.setMessage("체크박스를 확인해주세요.")
@@ -52,42 +48,53 @@ public class WithdrawalActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
-                if(!check_edit.getText().toString().equals(rndmStr)){
+                if(pw.equals("")){
                     AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawalActivity.this);
-                    dialog = builder.setMessage("문자열이 일치하지 않습니다.")
+                    dialog = builder.setMessage("비밀번호를 확인해주세요.")
                             .setNegativeButton("확인",null)
                             .create();
                     dialog.show();
                     return;
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawalActivity.this);
-                dialog = builder.setMessage("회원 탈퇴를 진행하시겠습니까?")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Withdrawal_user();
-                            }
-                        })
-                        .setNegativeButton("취소",null)
-                        .create();
-                dialog.show();
+                PwCheck(pw);
             }
         });
-
-
     }
-
-    private String MakeRandomStr(int n){
-        String text = "";
-        String[] strData = new String[n];
-        Random random = new Random();
-
-        for(int i = 0; i < n;i++){
-            strData[i] = String.valueOf((char) ((int) (random.nextInt(11171))+44032));
-            text += strData[i];
-        }
-
-        return text;
+    private void PwCheck(String pw){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(success){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawalActivity.this);
+                        dialog = builder.setMessage("회원 탈퇴를 진행하시겠습니까?")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Withdrawal_user();
+                                    }
+                                })
+                                .setNegativeButton("취소",null)
+                                .create();
+                        dialog.show();
+                    }
+                    else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(WithdrawalActivity.this);
+                        dialog = builder.setMessage("비밀번호를 확인해주세요.")
+                                .setNegativeButton("다시 시도",null)
+                                .create();
+                        dialog.show();
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        LoginRequest loginRequest = new LoginRequest(user.getUserID(),pw,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(WithdrawalActivity.this);
+        queue.add(loginRequest);
     }
 
     private void Withdrawal_user(){
@@ -119,4 +126,5 @@ public class WithdrawalActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(WithdrawalActivity.this);
         queue.add(request);
     }
+
 }

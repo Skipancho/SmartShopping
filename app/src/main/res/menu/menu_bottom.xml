@@ -35,8 +35,5 @@
         android:icon="@drawable/ic_baseline_question_answer_24"
         android:enabled="true"
         android:checked="true"
-        android:title="리뷰" />
-
-
-
+        android:title="리뷰 관리" />
 </menu>

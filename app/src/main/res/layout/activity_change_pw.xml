@@ -20,17 +20,22 @@
             android:textSize="25dp"
             android:textStyle="bold" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"/>
     <EditText
         android:inputType="textPassword"
         android:id="@+id/new_pw_edit"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/empty_shape_line"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:hint=" 새 비밀번호"
+        android:drawablePadding="5dp"
+        android:hint="새 비밀번호"
         android:padding="10dp" />
     <EditText
         android:inputType="textPassword"
@@ -42,7 +47,8 @@
         android:background="@drawable/empty_shape_line"
         android:drawableStart="@drawable/ic_baseline_lock_24"
         android:drawableLeft="@drawable/ic_baseline_lock_24"
-        android:hint=" 새 비밀번호 확인"
+        android:drawablePadding="5dp"
+        android:hint="새 비밀번호 확인"
         android:padding="10dp" />
     <TextView
         android:id="@+id/pw_msg"
@@ -56,7 +62,7 @@
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/empty_shape_line"
         android:text="비밀번호 변경"/>
 

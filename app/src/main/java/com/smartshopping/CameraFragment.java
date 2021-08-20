@@ -271,7 +271,7 @@ public class CameraFragment extends Fragment {
 
         for (Map.Entry<String, Float> entry : labeledProbability.entrySet()) {
             if (entry.getValue()==maxValueInMap) {
-                barcodeText.setText(entry.getKey().substring(2));
+                barcodeText.setText(entry.getKey());
             }
         }
     }

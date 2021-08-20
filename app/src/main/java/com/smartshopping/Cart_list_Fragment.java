@@ -165,6 +165,7 @@ public class Cart_list_Fragment extends Fragment {
         totalCal_cart();
     }
     public  void setList(String key, List<Product_Item> productList){
+        key = MainActivity.user.getUserID() + key;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
         SharedPreferences.Editor editor = preferences.edit();
         JSONArray jsonArray = new JSONArray();

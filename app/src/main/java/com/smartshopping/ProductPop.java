@@ -12,9 +12,11 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -46,7 +48,10 @@ public class ProductPop extends AppCompatActivity {
     private String mode = "";
     private boolean isNull = true;
     private Bitmap bitmap;
-    private ImageView p_image;
+    private ImageView p_image, review_bar, info_bar;
+    private Button info_btn, review_btn;
+    private FrameLayout review_frame;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +66,47 @@ public class ProductPop extends AppCompatActivity {
         pInfoText.setMovementMethod(new ScrollingMovementMethod());
         reviewListView = findViewById(R.id.reviewList);
         no_reivew_text = findViewById(R.id.no_review_text);
+        info_btn = findViewById(R.id.info_btn);
+        review_btn = findViewById(R.id.review_btn);
+        info_bar = findViewById(R.id.info_select_bar);
+        review_bar = findViewById(R.id.review_select_bar);
+        review_frame = findViewById(R.id.review_frame);
+
+        review_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //하단 바 변경
+                info_btn.setTextColor(getResources().getColor(R.color.black));
+                info_bar.setVisibility(View.INVISIBLE);
+                review_btn.setTextColor(getResources().getColor(R.color.colorBlue));
+                review_bar.setVisibility(View.VISIBLE);
+
+                //상세설명 -> 리뷰로 전환
+                pInfoText.setVisibility(View.GONE);
+                review_frame.setVisibility(View.VISIBLE);
+            }
+        });
+        info_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                review_btn.setTextColor(getResources().getColor(R.color.black));
+                review_bar.setVisibility(View.INVISIBLE);
+                info_btn.setTextColor(getResources().getColor(R.color.colorBlue));
+                info_bar.setVisibility(View.VISIBLE);
+
+                //상세설명 -> 리뷰로 전환
+                review_frame.setVisibility(View.GONE);
+                pInfoText.setVisibility(View.VISIBLE);
+            }
+        });
+
+
 
         pNameText.setSelected(true);
 
         adapter = new ReviewAdapter(this, reviewList);
         reviewListView.setAdapter(adapter);
-        System.out.println(searchText);
+
         new SearchReview().execute();
         new SearchProduct().execute();
         Thread mThread = new Thread(){
@@ -109,6 +149,10 @@ public class ProductPop extends AppCompatActivity {
         add_Cart_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(product.getAmount() == 0){
+                    Toast.makeText(ProductPop.this,"품절된 상품 입니다.",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(isNull){
                     return;
                 }else{
@@ -131,6 +175,7 @@ public class ProductPop extends AppCompatActivity {
                     }
                     String key = mode + "List";
                     setList(key,products);
+                    Toast.makeText(ProductPop.this,"상품 추가 완료",Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -144,6 +189,7 @@ public class ProductPop extends AppCompatActivity {
         });
     }
     public  void setList(String key, List<Product_Item> productList){
+        key = MainActivity.user.getUserID() + key;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
         JSONArray jsonArray = new JSONArray();
@@ -154,10 +200,10 @@ public class ProductPop extends AppCompatActivity {
         }
         if(!productList.isEmpty()){
             editor.putString(key,jsonArray.toString()).commit();
-            System.out.println(jsonArray.toString());
+            //System.out.println(jsonArray.toString());
         }else {
             editor.putString(key,null).commit();
-            System.out.println(jsonArray.toString());
+            //System.out.println(jsonArray.toString());
         }
     }
 
@@ -284,8 +330,8 @@ public class ProductPop extends AppCompatActivity {
                     amount = object.getInt("amount");
                     product = new Product_Item(pCode,pName,price,amount,mode);
                     pNameText.setText(pName);
-                    pPriceText.setText(price+"원");
-                    pAmoutText.setText("재고량 : "+amount+"개");
+                    pPriceText.setText(price+" (원)");
+                    pAmoutText.setText(amount+" (개)");
                     pInfoText.setText(info);
                     count++;
                     isNull = false;

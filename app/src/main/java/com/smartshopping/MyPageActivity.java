@@ -91,4 +91,10 @@ public class MyPageActivity extends AppCompatActivity {
                 .create();
         dialog.show();
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.anim_none,R.anim.anim_right_out);
+    }
 }

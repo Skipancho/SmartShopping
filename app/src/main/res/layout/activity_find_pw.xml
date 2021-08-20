@@ -22,7 +22,11 @@
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
         <EditText
             android:id="@+id/name_edit"
@@ -33,7 +37,10 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_face_24"
             android:drawableLeft="@drawable/ic_baseline_face_24"
-            android:hint=" 이름"
+            android:drawablePadding="5dp"
+            android:hint="이름"
+            android:singleLine="true"
+            android:lines="1"
             android:padding="10dp"/>
         <EditText
             android:id="@+id/phoneNo_edit"
@@ -45,7 +52,8 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_phone_android_24"
             android:drawableLeft="@drawable/ic_baseline_phone_android_24"
-            android:hint=" 전화번호( - 없이)"
+            android:drawablePadding="5dp"
+            android:hint="전화번호( - 없이)"
             android:padding="10dp"/>
 
         <EditText
@@ -57,7 +65,10 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawableLeft="@drawable/ic_baseline_person_24"
-            android:hint=" 아이디"
+            android:drawablePadding="5dp"
+            android:hint="아이디"
+            android:lines="1"
+            android:singleLine="true"
             android:padding="10dp" />
         <Spinner
             android:layout_width="280dp"
@@ -75,21 +86,38 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_question_answer_24"
             android:drawableLeft="@drawable/ic_baseline_question_answer_24"
-            android:hint=" 답변"
+            android:drawablePadding="5dp"
+            android:hint="답변"
             android:padding="10dp"
-            android:textColor="#000000"
-            android:textColorHint="#000000" />
-
-        <Button
-            android:id="@+id/find_pw_btn"
-            android:layout_width="280dp"
+            android:lines="1"
+            android:singleLine="true"/>
+        <LinearLayout
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:text="비밀번호 찾기"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:background="@drawable/empty_shape_line" />
+            android:layout_marginTop="50dp">
+            <Button
+                android:id="@+id/finishBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="20dp"
+                android:text="취  소"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:background="@drawable/empty_shape_line" />
+            <Button
+                android:id="@+id/find_pw_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="비밀번호 찾기"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:background="@drawable/empty_shape_line" />
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

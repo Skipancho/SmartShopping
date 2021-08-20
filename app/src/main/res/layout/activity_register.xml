@@ -20,6 +20,10 @@
             android:padding="5dp"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorGray"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,7 +49,11 @@
                 android:background="@drawable/empty_shape_line"
                 android:drawableStart="@drawable/ic_baseline_person_24"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
-                android:hint=" 아이디"
+                android:drawablePadding="5dp"
+                android:maxLength="20"
+                android:lines="1"
+                android:singleLine="true"
+                android:hint="아이디"
                 android:padding="10dp" />
 
             <Button
@@ -59,6 +67,11 @@
                 android:textSize="15dp"
                 android:textStyle="bold" />
         </LinearLayout>
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="※ 6 ~ 12자의 영문 대소문자 및 숫자" />
 
         <EditText
             android:inputType="textPassword"
@@ -70,7 +83,9 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:hint=" 패스워드"
+            android:drawablePadding="5dp"
+            android:hint="비밀번호"
+            android:maxLength="20"
             android:padding="10dp" />
         <EditText
             android:inputType="textPassword"
@@ -82,14 +97,15 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_lock_24"
             android:drawableLeft="@drawable/ic_baseline_lock_24"
-            android:hint=" 패스워드 확인"
+            android:drawablePadding="5dp"
+            android:hint="비밀번호 확인"
             android:padding="10dp" />
         <TextView
             android:id="@+id/pw_msg"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="※ 패스워드가 일치하지 않습니다."
+            android:text="※ 비밀번호가 일치하지 않습니다."
             android:visibility="invisible"
             android:textColor="@color/colorWarning"/>
 
@@ -102,7 +118,11 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_face_24"
             android:drawableLeft="@drawable/ic_baseline_face_24"
-            android:hint=" 이름"
+            android:drawablePadding="5dp"
+            android:hint="이름"
+            android:maxLength="20"
+            android:lines="1"
+            android:singleLine="true"
             android:padding="10dp"
             />
 
@@ -116,7 +136,8 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_phone_android_24"
             android:drawableLeft="@drawable/ic_baseline_phone_android_24"
-            android:hint=" 전화번호( - 없이)"
+            android:drawablePadding="5dp"
+            android:hint="전화번호( - 없이)"
             android:padding="10dp"
             />
 
@@ -137,7 +158,11 @@
                 android:background="@drawable/empty_shape_line"
                 android:drawableStart="@drawable/ic_baseline_emoji_emotions_24"
                 android:drawableLeft="@drawable/ic_baseline_emoji_emotions_24"
-                android:hint=" 닉네임"
+                android:drawablePadding="5dp"
+                android:hint="닉네임"
+                android:maxLength="20"
+                android:lines="1"
+                android:singleLine="true"
                 android:padding="10dp" />
 
             <Button
@@ -168,26 +193,45 @@
             android:background="@drawable/empty_shape_line"
             android:drawableStart="@drawable/ic_baseline_question_answer_24"
             android:drawableLeft="@drawable/ic_baseline_question_answer_24"
-            android:hint=" 답변"
-            android:padding="10dp"
-            android:textColor="#000000"
-            android:textColorHint="#000000" />
+            android:drawablePadding="5dp"
+            android:hint="답변"
+            android:maxLength="20"
+            android:lines="1"
+            android:singleLine="true"
+            android:padding="10dp"/>
         <TextView
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="비밀번호 찾기 시 사용될 답변입니다."/>
-
-        <Button
+        <LinearLayout
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:background="@drawable/empty_shape_line"
-            android:text="가입하기"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:id="@+id/registerBtn"/>
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center">
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/empty_shape_line"
+                android:text="취  소"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:id="@+id/finishBtn"/>
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:background="@drawable/empty_shape_line"
+                android:text="가입하기"
+                android:layout_gravity="center"
+                android:id="@+id/registerBtn"/>
+        </LinearLayout>
 
     </LinearLayout>
     </ScrollView>

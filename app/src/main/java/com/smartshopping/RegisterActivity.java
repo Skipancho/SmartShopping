@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,6 +22,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.regex.Pattern;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private ArrayAdapter adapter;
@@ -29,6 +33,18 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText idText, passwordText, phoneNoText,nameText,nickNameText,pwAnswerText, pwChecker;
     private Button idValidateBtn,nickValidateBtn;
     private TextView pw_msg;
+
+    protected InputFilter filter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+            Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
+            if (!ps.matcher(charSequence).matches()) {
+                return "";
+            }
+            return null;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         idValidateBtn = (Button) findViewById(R.id.validateBtn);
         Button registerBtn = (Button)findViewById(R.id.registerBtn);
 
+        idText.setFilters(new InputFilter[]{filter});
 
         idValidateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,20 +97,26 @@ public class RegisterActivity extends AppCompatActivity {
                 String pw = passwordText.getText().toString();
                 String pwC = pwChecker.getText().toString();
                 if(pw.equals(pwC)){
-                    pw_msg.setText("※ 패스워드가 일치합니다.");
+                    pw_msg.setText("※ 비밀번호가 일치합니다.");
                     pw_msg.setTextColor(getResources().getColor(R.color.green));
                     pwCheck = true;
                 }else if(pwC.equals("")){
                     pw_msg.setVisibility(View.INVISIBLE);
                     pwCheck = false;
                 }else{
-                    pw_msg.setText("※ 패스워드가 일치하지 않습니다.");
+                    pw_msg.setText("※ 비밀번호가 일치하지 않습니다.");
                     pw_msg.setTextColor(getResources().getColor(R.color.colorWarning));
                     pwCheck = false;
                 }
             }
         });
 
+        findViewById(R.id.finishBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,9 +144,17 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
+                if(spinner.getSelectedItemPosition() == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    dialog = builder.setMessage("질문을 선택해주세요.")
+                            .setNegativeButton("확인",null)
+                            .create();
+                    dialog.show();
+                    return;
+                }
                 if(!pwCheck){
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    dialog = builder.setMessage("패스워드를 확인해주세요.")
+                    dialog = builder.setMessage("비밀번호를 확인해주세요.")
                             .setNegativeButton("확인",null)
                             .create();
                     dialog.show();
@@ -136,6 +167,15 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     public void ValidateID(String id){
+        if(id.length()<6||id.length()>12){
+            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            dialog = builder.setMessage("아이디를 확인해주세요.\n6 ~ 20자의 영문 대소문자 및 숫자만 사용 가능합니다.")
+                    .setNegativeButton("확인",null)
+                    .create();
+            dialog.show();
+            idValidate = false;
+            return;
+        }
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -169,6 +209,9 @@ public class RegisterActivity extends AppCompatActivity {
         queue.add(validateRequest);
     }
     public void ValidateNick(String nickName){
+        if(nickName.equals("")){
+            return;
+        }
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

@@ -52,6 +52,13 @@ public class FindPwActivity extends AppCompatActivity {
                 FindPw(name,phone,id,pAsk,answer);
             }
         });
+
+        findViewById(R.id.finishBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
     private void FindPw(String name, String phone, final String id, String pAsk, String answer){
         Response.Listener<String> responseListener = new Response.Listener<String>() {

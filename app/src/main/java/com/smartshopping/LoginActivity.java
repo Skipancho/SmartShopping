@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,6 +23,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.util.regex.Pattern;
+
 public class LoginActivity extends AppCompatActivity {
     private AlertDialog dialog;
     private String userID;
@@ -27,6 +32,18 @@ public class LoginActivity extends AppCompatActivity {
     private EditText idText, passwordText;
     private CheckBox autoLogin;
     private SharedPreferences loginInfo;
+
+    protected InputFilter filter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence charSequence, int i, int i1, Spanned spanned, int i2, int i3) {
+            Pattern ps = Pattern.compile("^[a-zA-Z0-9]+$");
+            if (!ps.matcher(charSequence).matches()) {
+                return "";
+            }
+            return null;
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
         idText = findViewById(R.id.idText);
         passwordText = findViewById(R.id.passwordText);
         autoLogin = findViewById(R.id.autoLogin);
+
+        //idText.setFilters(new InputFilter[]{filter});
 
         loginInfo = getSharedPreferences("setting", Activity.MODE_PRIVATE);
         userID = loginInfo.getString("inputID",null);

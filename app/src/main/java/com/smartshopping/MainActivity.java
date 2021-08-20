@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,12 +60,12 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout main_layout;
     private RelativeLayout fragment;
     private TextView header_text;
+    private Button eraze_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         user = new User(getIntent().getStringExtra("userID"),getIntent().getStringExtra("phoneNum"),getIntent().getStringExtra("name"),getIntent().getStringExtra("nickName"));
         main = MainActivity.this;
         productList = new ArrayList<>();
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         search_edit = findViewById(R.id.search_edit);
         search_gv = findViewById(R.id.search_grid);
         search_lv = findViewById(R.id.search_list);
+        eraze_btn = findViewById(R.id.erase_btn);
 
         gridAdapter = new GridAdapter(MainActivity.this,searchList);
         listAdapter = new Search_ProductAdapter(MainActivity.this,searchList);
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 MainActivity.this.startActivity(new Intent(MainActivity.this,MyPageActivity.class));
+                overridePendingTransition(R.anim.anim_right_in,R.anim.anim_none);
             }
         });
 
@@ -134,6 +138,38 @@ public class MainActivity extends AppCompatActivity {
                 search_lv.setVisibility(View.VISIBLE);
             }
         });
+        eraze_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_edit.setText("");
+            }
+        });
+
+
+        search_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String txt = search_edit.getText().toString();
+                if(txt.length() >= 1){
+                    eraze_btn.setVisibility(View.VISIBLE);
+                }else{
+                    eraze_btn.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+
 
         b_navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -142,6 +178,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.tab1:{
                         header_text.setText("스마트 장보기");
+                        searchList.clear();
+                        new ProductSearching().execute();
                         fragment.setVisibility(View.GONE);
                         main_layout.setVisibility(View.VISIBLE);
                         return true;
@@ -191,10 +229,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.search_txt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    startActivity(new Intent(MainActivity.this, SearchActivity.class));
+            }
+        });
+
     }
     public  void setList(String key, List<Product_Item> productList){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
+        key = MainActivity.user.getUserID() + key;
         JSONArray jsonArray = new JSONArray();
         Gson gson = new GsonBuilder().create();
         for(int i = 0; i < productList.size();i++){
@@ -210,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public  List<Product_Item> getList(String key){
+        key = MainActivity.user.getUserID() + key;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String json = preferences.getString(key,null);
         List<Product_Item> list = new ArrayList<>();
@@ -234,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             try {
-                target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=pName&searchText="+ URLEncoder.encode(searchText,"UTF-8");
+                target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=tag&searchText="+ URLEncoder.encode(searchText,"UTF-8");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -285,6 +332,7 @@ public class MainActivity extends AppCompatActivity {
                     gridAdapter.notifyDataSetChanged();
                     count++;
                 }
+                searchText = "";
             }catch (Exception e){
                 e.printStackTrace();
             }

@@ -5,6 +5,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -134,10 +139,19 @@ public class Product_Item_Adapter extends BaseAdapter {
             }
         });
 
-        v.setTag(productList.get(i).getpCode());
+        TranslateAnimation translateAnimation = new TranslateAnimation(300, 0, 0, 0);
+        Animation alphaAnimation = new AlphaAnimation(0, 1);
+        translateAnimation.setDuration(500);
+        alphaAnimation.setDuration(500);
+        AnimationSet animation = new AnimationSet(true);
+        animation.addAnimation(translateAnimation);
+        animation.addAnimation(alphaAnimation);
+        v.setAnimation(animation);
+
         return v;
     }
     public  void setList(String key, List<Product_Item> productList){
+        key = MainActivity.user.getUserID() + key;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         /*ArrayList<Product> products = new ArrayList<>();
