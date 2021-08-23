@@ -51,16 +51,19 @@ public class MainActivity extends AppCompatActivity {
     private List<SearchProduct> searchList = new ArrayList<>();
     private ListView search_lv;
     private GridView search_gv;
-    private String searchText="";
     public static List<Product_Item> productList;
     public static List<Product_Item> checkList;
-    private EditText search_edit;
+
     private GridAdapter gridAdapter;
     private Search_ProductAdapter listAdapter;
     private LinearLayout main_layout;
     private RelativeLayout fragment;
     private TextView header_text;
-    private Button eraze_btn;
+
+    // 검색 모드 변경용 (임시)
+    //private boolean isView_1 = false;
+    //private EditText search_edit;
+    //private Button eraze_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +80,11 @@ public class MainActivity extends AppCompatActivity {
         main_layout = findViewById(R.id.main_layout);
         fragment = findViewById(R.id.fragment);
         b_navi = findViewById(R.id.bottomNavi);
-        search_edit = findViewById(R.id.search_edit);
+
         search_gv = findViewById(R.id.search_grid);
         search_lv = findViewById(R.id.search_list);
-        eraze_btn = findViewById(R.id.erase_btn);
+
+
 
         gridAdapter = new GridAdapter(MainActivity.this,searchList);
         listAdapter = new Search_ProductAdapter(MainActivity.this,searchList);
@@ -100,17 +104,6 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("mode","check");
                     MainActivity.this.startActivity(intent);
                 }
-            }
-        });
-
-        Button search_btn = findViewById(R.id.search_btn);
-        search_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchText = search_edit.getText().toString();
-                searchList.clear();
-                new ProductSearching().execute();
-                search_edit.setText("");
             }
         });
 
@@ -138,38 +131,6 @@ public class MainActivity extends AppCompatActivity {
                 search_lv.setVisibility(View.VISIBLE);
             }
         });
-        eraze_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                search_edit.setText("");
-            }
-        });
-
-
-        search_edit.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String txt = search_edit.getText().toString();
-                if(txt.length() >= 1){
-                    eraze_btn.setVisibility(View.VISIBLE);
-                }else{
-                    eraze_btn.setVisibility(View.GONE);
-                }
-            }
-        });
-
-
-
 
         b_navi.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -178,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.tab1:{
                         header_text.setText("스마트 장보기");
-                        searchList.clear();
-                        new ProductSearching().execute();
+                        //searchList.clear();
+                        //new ProductSearching().execute();
                         fragment.setVisibility(View.GONE);
                         main_layout.setVisibility(View.VISIBLE);
                         return true;
@@ -229,12 +190,75 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //검색 액티비티 이동 액션
         findViewById(R.id.search_txt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                     startActivity(new Intent(MainActivity.this, SearchActivity.class));
             }
         });
+
+        //홈 로고를 이용해 검색 모드 변경
+        /*findViewById(R.id.home_logo).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LinearLayout view1 = findViewById(R.id.view_1);
+                LinearLayout view2 = findViewById(R.id.view_2);
+                if(isView_1){
+                    view1.setVisibility(View.GONE);
+                    view2.setVisibility(View.VISIBLE);
+                    isView_1 = false;
+                }else{
+                    view1.setVisibility(View.VISIBLE);
+                    view2.setVisibility(View.GONE);
+                    isView_1 = true;
+                }
+
+            }
+        });*/
+
+        //홈 화면에서 검색
+         /*
+        eraze_btn = findViewById(R.id.erase_btn);
+        search_edit = findViewById(R.id.search_edit);
+        eraze_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search_edit.setText("");
+            }
+        });
+        Button search_btn = findViewById(R.id.search_btn);
+        search_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                searchText = search_edit.getText().toString();
+                searchList.clear();
+                new ProductSearching().execute();
+                search_edit.setText("");
+            }
+        });
+
+        search_edit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String txt = search_edit.getText().toString();
+                if(txt.length() >= 1){
+                    eraze_btn.setVisibility(View.VISIBLE);
+                }else{
+                    eraze_btn.setVisibility(View.GONE);
+                }
+            }
+        });*/
 
     }
     public  void setList(String key, List<Product_Item> productList){
@@ -281,7 +305,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             try {
-                target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=tag&searchText="+ URLEncoder.encode(searchText,"UTF-8");
+                target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=tag&searchText=";
+                //target="https://ctg1770.cafe24.com/SC/S_C_ProductList.php?mode=tag&searchText="+ URLEncoder.encode(searchText,"UTF-8");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -332,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
                     gridAdapter.notifyDataSetChanged();
                     count++;
                 }
-                searchText = "";
+                //searchText = "";
             }catch (Exception e){
                 e.printStackTrace();
             }

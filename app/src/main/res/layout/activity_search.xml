@@ -11,6 +11,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
+        <!--searching space-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,18 +40,96 @@
                 android:id="@+id/erase_btn"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_baseline_clear_24"/>
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ic_round_add_circle_outline_24"/>
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@drawable/ic_baseline_search_24"/>
         </LinearLayout>
-        <ImageView
+        <!--line-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/colorGray"/>
+        <!--searching img-->
+        <LinearLayout
+            android:id="@+id/searching_img"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="@color/colorBlue"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/img_clear_btn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ic_baseline_clear_24"/>
+
+        </LinearLayout>
+        <!--last searching tag-->
+        <FrameLayout
+            android:id="@+id/last_searching"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/no_tag_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 검색어 내역이 없습니다."/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="최근 검색어"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/all_clear_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전체 삭제"/>
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/tag_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"/>
+
+            </LinearLayout>
+        </FrameLayout>
+        <!--result of search-->
         <LinearLayout
             android:visibility="gone"
             android:id="@+id/search_layout"
@@ -104,5 +183,29 @@
                 android:divider="#00000000"
                 android:scrollbars="none"/>
         </LinearLayout>
+    </LinearLayout>
+    <!--bottom-->
+    <LinearLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/auto_save_on_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자동저장 끄기"/>
+        </LinearLayout>
+        <Button
+            android:id="@+id/search_to_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사진 검색"/>
     </LinearLayout>
 </LinearLayout>
