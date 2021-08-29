@@ -49,7 +49,7 @@ public class ProductPop extends AppCompatActivity {
     private boolean isNull = true;
     private Bitmap bitmap;
     private ImageView p_image, review_bar, info_bar;
-    private Button info_btn, review_btn;
+    private Button info_btn, review_btn, add_Cart_Btn;
     private FrameLayout review_frame;
 
     @Override
@@ -138,7 +138,7 @@ public class ProductPop extends AppCompatActivity {
 
         products = new ArrayList<>();
 
-        Button add_Cart_Btn = findViewById(R.id.add_Btn);
+        add_Cart_Btn = findViewById(R.id.add_Btn);
         if(mode.equals("cart")){
             add_Cart_Btn.setText("장바구니 담기");
         }else if(mode.equals("check")){
@@ -337,7 +337,11 @@ public class ProductPop extends AppCompatActivity {
                     isNull = false;
                 }
                 if(count == 0){
+                    pNameText.setText("상품 없음");
+                    pPriceText.setText("NaN");
+                    pAmoutText.setText("NaN");
                     pInfoText.setText("해당하는 상품이 없습니다.");
+                    add_Cart_Btn.setVisibility(View.GONE);
                 }
             }catch (Exception e){
                 e.printStackTrace();

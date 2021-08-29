@@ -1,13 +1,16 @@
 package com.smartshopping;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.session.MediaSession;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,6 +28,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -47,6 +53,7 @@ import javax.net.ssl.HttpsURLConnection;
 public class MainActivity extends AppCompatActivity {
     public static Activity main;
     public static User user;
+    public static String myToken = null;
     private BottomNavigationView b_navi;
     private List<SearchProduct> searchList = new ArrayList<>();
     private ListView search_lv;
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GridAdapter gridAdapter;
     private Search_ProductAdapter listAdapter;
-    private LinearLayout main_layout;
+    private LinearLayout main_layout, tutorial_ll;
     private RelativeLayout fragment;
     private TextView header_text;
 
@@ -64,6 +71,20 @@ public class MainActivity extends AppCompatActivity {
     //private boolean isView_1 = false;
     //private EditText search_edit;
     //private Button eraze_btn;
+
+    private TokenThread tokenThread = new TokenThread();
+    @Override
+    protected void onPause(){
+        super.onPause();
+        tokenThread.setRunning(false);
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        tokenThread = new TokenThread();
+        tokenThread.start();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,15 +96,24 @@ public class MainActivity extends AppCompatActivity {
         checkList = new ArrayList<>();
         checkList = getList("checkList");
         productList = getList("cartList");
+        myToken = getIntent().getStringExtra("token");
+        SharedPreferences sp = getSharedPreferences("setting", Activity.MODE_PRIVATE);
+        boolean isFirst = sp.getBoolean("first_login",true);
+        if(isFirst){
+            startActivity(new Intent(MainActivity.this,TutorialActivity.class));
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putBoolean("first_login",false);
+        }
+        tokenThread.start();
 
         header_text =findViewById(R.id.header_text);
         main_layout = findViewById(R.id.main_layout);
         fragment = findViewById(R.id.fragment);
         b_navi = findViewById(R.id.bottomNavi);
+        tutorial_ll =(LinearLayout) findViewById(R.id.tutorial_ll);
 
         search_gv = findViewById(R.id.search_grid);
         search_lv = findViewById(R.id.search_list);
-
 
 
         gridAdapter = new GridAdapter(MainActivity.this,searchList);
@@ -108,6 +138,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         new ProductSearching().execute();
+
+        tutorial_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tutorial_ll.setVisibility(View.GONE);
+            }
+        });
 
         findViewById(R.id.mypage_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,6 +298,42 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
     }
+
+    private void Token_Check(String token){
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonResponse = new JSONObject(response);
+                    boolean success = jsonResponse.getBoolean("success");
+                    if(!success){
+                        AlertDialog dialog;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        dialog = builder.setMessage("다른 기기에서의 로그인이 감지되었습니다.")
+                                .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                                        intent.putExtra("kill",true);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                })
+                                .create();
+                        dialog.show();
+                        tokenThread.setRunning(false);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        };
+        TokenRequest request = new TokenRequest(user.getUserID(),token,responseListener);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(request);
+    }
+
     public  void setList(String key, List<Product_Item> productList){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();
@@ -298,7 +371,28 @@ public class MainActivity extends AppCompatActivity {
         }
         return list;
     }
+    class TokenThread extends Thread{
+        private boolean running = true;
+        public TokenThread(){}
 
+        public void setRunning(boolean running){
+            this.running = running;
+        }
+
+        @Override
+        public void run() {
+            int i = 0;
+            while (running){
+                Token_Check(myToken);
+                try{
+                    this.sleep(3000);
+                    //System.out.println("running"+(i++));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     class ProductSearching extends AsyncTask<Void,Void,String> {
 
         String target;

@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +98,7 @@ public class CameraFragment extends Fragment {
     private DecoratedBarcodeView barcodeView;
     private EditText barcodeText;
     protected Interpreter tflite;
-    private MappedByteBuffer tfliteModel;
+    //private MappedByteBuffer tfliteModel;
     private TensorImage inputImageBuffer;
     private  int imageSizeX;
     private  int imageSizeY;
@@ -108,8 +110,8 @@ public class CameraFragment extends Fragment {
     private static final float PROBABILITY_STD = 255.0f;
     private Bitmap bitmap;
     private List<String> labels;
-    Uri imageuri;
-    ImageView imageView;
+    private ImageView imageView;
+    private Button p_inq_Btn;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -139,7 +141,7 @@ public class CameraFragment extends Fragment {
         }catch (Exception e) {
             e.printStackTrace();
         }
-        Button p_inq_Btn = getView().findViewById(R.id.p_Inq);
+        p_inq_Btn = getView().findViewById(R.id.p_Inq);
         p_inq_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,6 +164,26 @@ public class CameraFragment extends Fragment {
                 //카메라 온
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(i, 101);
+            }
+        });
+        barcodeText.setEnabled(false);
+        barcodeText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int bar_len = barcodeText.getText().toString().length();
+                if(bar_len >= 5){
+                    p_inq_Btn.setBackground(getResources().getDrawable(R.drawable.blue_shape_line));
+                }
             }
         });
     }

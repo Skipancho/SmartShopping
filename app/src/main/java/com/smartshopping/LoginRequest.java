@@ -17,6 +17,14 @@ public class LoginRequest extends StringRequest {
         parameters.put("userPW",userPassword);
     }
 
+    public LoginRequest(String userID, String userPassword, String key, Response.Listener<String> listener){
+        super(Method.POST,URL,listener,null);
+        parameters = new HashMap<>();
+        parameters.put("userID",userID);
+        parameters.put("userPW",userPassword);
+        parameters.put("key",key);
+    }
+
     @Override
     public Map<String,String> getParams(){
         return parameters;

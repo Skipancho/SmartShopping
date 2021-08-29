@@ -4,9 +4,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.InputFilter;
 import android.text.Spanned;
 import android.view.KeyEvent;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText idText, passwordText;
     private CheckBox autoLogin;
     private SharedPreferences loginInfo;
+    private String token_key;
 
     protected InputFilter filter = new InputFilter() {
         @Override
@@ -49,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        token_key = CreateTokenKey(10);
         idText = findViewById(R.id.idText);
         passwordText = findViewById(R.id.passwordText);
         autoLogin = findViewById(R.id.autoLogin);
@@ -60,11 +63,14 @@ public class LoginActivity extends AppCompatActivity {
         userID = loginInfo.getString("inputID",null);
         userPassword = loginInfo.getString("inputPassword",null);
 
+        boolean isKilled = getIntent().getBooleanExtra("kill",false);
+
         if(userID != null && userPassword != null){
             idText.setText(userID);
             passwordText.setText(userPassword);
             autoLogin.setChecked(true);
-            UserLogin(userID,userPassword);
+            if(!isKilled)
+                UserLogin(userID,userPassword);
         }
 
         Button loginBtn = findViewById(R.id.loginBtn);
@@ -114,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                         String userName = jsonResponse.getString("name");
                         String phoneNo = jsonResponse.getString("phoneNum");
                         String nickName = jsonResponse.getString("nickName");
+                        String token = jsonResponse.getString("token");
                         if(autoLogin.isChecked()){
                             SharedPreferences.Editor editor= loginInfo.edit();
                             editor.putString("inputID",userID);
@@ -129,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.putExtra("phoneNum",phoneNo);
                         intent.putExtra("name",userName);
                         intent.putExtra("nickName",nickName);
+                        intent.putExtra("token",token+token_key);
                         LoginActivity.this.startActivity(intent);
                         finish();
                     }
@@ -144,10 +152,28 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        LoginRequest loginRequest = new LoginRequest(userID,userPassword,responseListener);
+        LoginRequest loginRequest = new LoginRequest(userID,userPassword,token_key,responseListener);
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         queue.add(loginRequest);
     }
+
+    private String CreateTokenKey(int size){
+        if(size > 0) {
+            char[] tmp = new char[size];
+            for(int i=0; i<tmp.length; i++) {
+                int div = (int) Math.floor( Math.random() * 2 );
+
+                if(div == 0) { // 0이면 숫자로
+                    tmp[i] = (char) (Math.random() * 10 + '0') ;
+                }else { //1이면 알파벳
+                    tmp[i] = (char) (Math.random() * 26 + 'A') ;
+                }
+            }
+            return new String(tmp);
+        }
+        return "err";
+    }
+
     @Override
     protected void onStop(){
         super.onStop();

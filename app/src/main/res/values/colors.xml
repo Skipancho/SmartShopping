@@ -9,4 +9,16 @@
     <color name="empty">#00000000</color>
     <color name="green">#04B404</color>
     <color name="black">#000000</color>
+    <color name="colorBackground">#9dc7fa</color>
+    <color name="colorItemSelected">#126fe0</color>
+    <color name="black_70">#B3000000</color>
+
+    <!--튜토리얼-->
+    <array name="array_dot_active">
+        <item>@color/colorItemSelected</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@android:color/white</item>
+    </array>
 </resources>

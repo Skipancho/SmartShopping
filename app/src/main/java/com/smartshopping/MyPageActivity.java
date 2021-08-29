@@ -64,6 +64,13 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.tutorial_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MyPageActivity.this.startActivity(new Intent(MyPageActivity.this,TutorialActivity.class));
+            }
+        });
+
     }
 
     void LogOut(){

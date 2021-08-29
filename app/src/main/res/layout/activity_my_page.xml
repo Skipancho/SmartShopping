@@ -102,6 +102,16 @@
             android:background="@drawable/empty_shape_line"
             android:text="지출 통계"
             android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/tutorial_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:drawableStart="@drawable/ic_round_slideshow_24"
+            android:drawableLeft="@drawable/ic_round_slideshow_24"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="튜토리얼 다시보기"/>
 
     </LinearLayout>
 

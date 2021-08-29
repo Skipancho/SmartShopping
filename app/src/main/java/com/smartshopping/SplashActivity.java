@@ -102,9 +102,6 @@ public class SplashActivity extends AppCompatActivity {
         };
         splashTread.start();
 
-
-
-
         /*icon_image = findViewById(R.id.logo_image);
         logo_text = findViewById(R.id.logo_text);
         fade_in.setAnimationListener(new Animation.AnimationListener() {
