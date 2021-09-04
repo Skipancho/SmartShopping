@@ -182,7 +182,7 @@ public class CameraFragment extends Fragment {
             public void afterTextChanged(Editable editable) {
                 int bar_len = barcodeText.getText().toString().length();
                 if(bar_len >= 5){
-                    p_inq_Btn.setBackground(getResources().getDrawable(R.drawable.blue_shape_line));
+                    p_inq_Btn.setBackground(getResources().getDrawable(R.drawable.btn_shape_no_line));
                 }
             }
         });

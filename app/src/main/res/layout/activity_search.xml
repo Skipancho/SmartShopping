@@ -56,7 +56,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/colorGray"/>
+            android:background="@color/colorBackground"/>
         <!--searching img-->
         <LinearLayout
             android:id="@+id/s_img_ll"

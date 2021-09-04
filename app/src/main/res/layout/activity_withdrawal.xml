@@ -9,24 +9,26 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/colorWarning">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="회원 탈퇴"
-            android:padding="5dp"
+            android:textColor="@android:color/white"
+            android:padding="10dp"
             android:textSize="25dp"
             android:textStyle="bold"/>
     </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:text="회원 탈퇴시 기존 회원 정보 및 구매기록, 리뷰기록 등이 영구히 삭제되며 해당 데이터는 복구되지 않습니다."
-        android:background="@drawable/empty_shape_line"
+        android:background="@drawable/empty_shape_line_basic"
         android:padding="10dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,7 +54,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginTop="30dp"
         android:padding="15dp"
-        android:background="@drawable/empty_shape_line"
+        android:background="@drawable/empty_shape_line_basic"
         android:orientation="vertical">
         <EditText
             android:id="@+id/pw_edit"

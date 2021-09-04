@@ -78,7 +78,7 @@ public class ProductPop extends AppCompatActivity {
                 //하단 바 변경
                 info_btn.setTextColor(getResources().getColor(R.color.black));
                 info_bar.setVisibility(View.INVISIBLE);
-                review_btn.setTextColor(getResources().getColor(R.color.colorBlue));
+                review_btn.setTextColor(getResources().getColor(R.color.colorItemSelected));
                 review_bar.setVisibility(View.VISIBLE);
 
                 //상세설명 -> 리뷰로 전환
@@ -91,7 +91,7 @@ public class ProductPop extends AppCompatActivity {
             public void onClick(View view) {
                 review_btn.setTextColor(getResources().getColor(R.color.black));
                 review_bar.setVisibility(View.INVISIBLE);
-                info_btn.setTextColor(getResources().getColor(R.color.colorBlue));
+                info_btn.setTextColor(getResources().getColor(R.color.colorItemSelected));
                 info_bar.setVisibility(View.VISIBLE);
 
                 //상세설명 -> 리뷰로 전환

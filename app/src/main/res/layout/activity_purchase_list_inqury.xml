@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
         android:orientation="vertical">
         <TextView
             android:id="@+id/header_text"
@@ -17,6 +18,7 @@
             android:layout_weight="1"
             android:text="구매 내역"
             android:textSize="25dp"
+            android:textStyle="bold"
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:padding="10dp"/>
@@ -30,16 +32,14 @@
             android:id="@+id/bDateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="    구매일     "
+            android:text="구매일         "
             android:padding="5dp"/>
         <TextView
             android:id="@+id/pNameText"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="상품명"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:ellipsize="end"/>
+            android:padding="5dp"/>
         <TextView
             android:id="@+id/p_amountText"
             android:layout_width="wrap_content"

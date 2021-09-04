@@ -43,6 +43,7 @@
                 android:id="@+id/buyBtn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/btn_shape_no_line"
                 android:text="구매하기"/>
             <TextView
                 android:id="@+id/totalPrice"

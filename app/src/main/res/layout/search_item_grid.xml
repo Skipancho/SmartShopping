@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@drawable/empty_shape_line">
+    android:background="@drawable/grid_shape_line">
 
     <ImageView
         android:id="@+id/image"

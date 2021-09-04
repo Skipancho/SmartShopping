@@ -100,9 +100,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences("setting", Activity.MODE_PRIVATE);
         boolean isFirst = sp.getBoolean("first_login",true);
         if(isFirst){
-            startActivity(new Intent(MainActivity.this,TutorialActivity.class));
             SharedPreferences.Editor editor = sp.edit();
             editor.putBoolean("first_login",false);
+            editor.commit();
+            startActivity(new Intent(MainActivity.this,TutorialActivity.class));
         }
         tokenThread.start();
 

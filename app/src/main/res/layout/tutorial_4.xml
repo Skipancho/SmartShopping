@@ -206,7 +206,7 @@
             android:layout_weight="1"
             android:layout_marginBottom="50dp"
             android:orientation="vertical"
-            android:background="@drawable/empty_shape_line">
+            android:background="@drawable/empty_shape_line_basic">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,11 +226,11 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="5dp"
-                    android:background="@drawable/empty_shape_line"/>
+                    android:background="@drawable/empty_shape_line_basic"/>
                 <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/empty_shape_line"/>
+                    android:background="@drawable/empty_shape_line_basic"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -246,7 +246,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="125dp"
-                android:background="@drawable/empty_shape_line"
+                android:background="@drawable/empty_shape_line_basic"
                 android:layout_marginTop="45dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>

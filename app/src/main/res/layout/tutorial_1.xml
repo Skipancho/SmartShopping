@@ -134,7 +134,7 @@
             <LinearLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/empty_shape_line"
+                android:background="@drawable/empty_shape_line_basic"
                 android:layout_marginEnd="10dp"/>
         </LinearLayout>
         <LinearLayout
@@ -145,7 +145,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/empty_shape_line"
+                android:background="@drawable/empty_shape_line_basic"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
@@ -177,12 +177,12 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/empty_shape_line"/>
+                    android:background="@drawable/empty_shape_line_basic"/>
                 <LinearLayout
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="30dp"
-                    android:background="@drawable/empty_shape_line"/>
+                    android:background="@drawable/empty_shape_line_basic"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -198,7 +198,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/empty_shape_line"
+                android:background="@drawable/empty_shape_line_basic"
                 android:layout_margin="10dp"
                 android:gravity="center"
                 android:text="상품 목록"
@@ -218,7 +218,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/empty_shape_line"
+            android:background="@drawable/empty_shape_line_basic"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="0dp"
