@@ -97,21 +97,10 @@ public class CameraFragment extends Fragment {
     private CaptureManager captureManager;
     private DecoratedBarcodeView barcodeView;
     private EditText barcodeText;
-    protected Interpreter tflite;
-    //private MappedByteBuffer tfliteModel;
-    private TensorImage inputImageBuffer;
-    private  int imageSizeX;
-    private  int imageSizeY;
-    private TensorBuffer outputProbabilityBuffer;
-    private TensorProcessor probabilityProcessor;
-    private static final float IMAGE_MEAN = 0.0f;
-    private static final float IMAGE_STD = 1.0f;
-    private static final float PROBABILITY_MEAN = 0.0f;
-    private static final float PROBABILITY_STD = 255.0f;
     private Bitmap bitmap;
-    private List<String> labels;
     private ImageView imageView;
     private Button p_inq_Btn;
+    private Classifier classifier;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -136,11 +125,9 @@ public class CameraFragment extends Fragment {
 
             }
         });
-        try{
-            tflite=new Interpreter(loadmodelfile(getActivity()));
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        initClassifier();
+
         p_inq_Btn = getView().findViewById(R.id.p_Inq);
         p_inq_Btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,78 +210,17 @@ public class CameraFragment extends Fragment {
         //Toast.makeText(getApplicationContext(),barcode,Toast.LENGTH_SHORT).show();
         barcodeText.setText(barcode);
     }
-
-    public void getResult(){
-        int imageTensorIndex = 0;
-        int[] imageShape = tflite.getInputTensor(imageTensorIndex).shape(); // {1, height, width, 3}
-        imageSizeY = imageShape[1];
-        imageSizeX = imageShape[2];
-        DataType imageDataType = tflite.getInputTensor(imageTensorIndex).dataType();
-
-        int probabilityTensorIndex = 0;
-        int[] probabilityShape =
-                tflite.getOutputTensor(probabilityTensorIndex).shape(); // {1, NUM_CLASSES}
-        DataType probabilityDataType = tflite.getOutputTensor(probabilityTensorIndex).dataType();
-
-        inputImageBuffer = new TensorImage(imageDataType);
-        outputProbabilityBuffer = TensorBuffer.createFixedSize(probabilityShape, probabilityDataType);
-        probabilityProcessor = new TensorProcessor.Builder().add(getPostprocessNormalizeOp()).build();
-
-        inputImageBuffer = loadImage(bitmap);
-
-        tflite.run(inputImageBuffer.getBuffer(),outputProbabilityBuffer.getBuffer().rewind());
-        showresult();
+    private void getResult(){
+        List<Classifier.Recognition> results = classifier.recognizeImage(bitmap);
+        Classifier.Recognition recognition = results.get(0);
+        barcodeText.setText(recognition.getTitle());
     }
 
-    private TensorImage loadImage(final Bitmap bitmap) {
-        // Loads bitmap into a TensorImage.
-        inputImageBuffer.load(bitmap);
-
-        // Creates processor for the TensorImage.
-        int cropSize = Math.min(bitmap.getWidth(), bitmap.getHeight());
-        // TODO(b/143564309): Fuse ops inside ImageProcessor.
-        ImageProcessor imageProcessor =
-                new ImageProcessor.Builder()
-                        .add(new ResizeWithCropOrPadOp(cropSize, cropSize))
-                        .add(new ResizeOp(imageSizeX, imageSizeY, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
-                        .add(getPreprocessNormalizeOp())
-                        .build();
-        return imageProcessor.process(inputImageBuffer);
-    }
-
-    private MappedByteBuffer loadmodelfile(Activity activity) throws IOException {
-        AssetFileDescriptor fileDescriptor=activity.getAssets().openFd("model.tflite");
-        FileInputStream inputStream=new FileInputStream(fileDescriptor.getFileDescriptor());
-        FileChannel fileChannel=inputStream.getChannel();
-        long startoffset = fileDescriptor.getStartOffset();
-        long declaredLength=fileDescriptor.getDeclaredLength();
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY,startoffset,declaredLength);
-    }
-
-    private TensorOperator getPreprocessNormalizeOp() {
-        return new NormalizeOp(IMAGE_MEAN, IMAGE_STD);
-    }
-    private TensorOperator getPostprocessNormalizeOp(){
-        return new NormalizeOp(PROBABILITY_MEAN, PROBABILITY_STD);
-    }
-
-
-    private void showresult(){
-
+    void initClassifier(){
         try{
-            labels = FileUtil.loadLabels(getContext(),"labels.txt");
+            classifier = new Classifier(getActivity(),"model.tflite","labels.txt");
         }catch (Exception e){
             e.printStackTrace();
-        }
-        Map<String, Float> labeledProbability =
-                new TensorLabel(labels, probabilityProcessor.process(outputProbabilityBuffer))
-                        .getMapWithFloatValue();
-        float maxValueInMap =(Collections.max(labeledProbability.values()));
-
-        for (Map.Entry<String, Float> entry : labeledProbability.entrySet()) {
-            if (entry.getValue()==maxValueInMap) {
-                barcodeText.setText(entry.getKey());
-            }
         }
     }
 

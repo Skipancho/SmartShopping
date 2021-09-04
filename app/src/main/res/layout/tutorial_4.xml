@@ -15,6 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorBackground"
             android:orientation="horizontal">
             <ImageView
                 android:id="@+id/home_logo"
@@ -22,7 +23,7 @@
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_baseline_home_24"/>
+                android:src="@drawable/logo_img"/>
             <TextView
                 android:id="@+id/header_text"
                 android:layout_width="0dp"
@@ -31,15 +32,16 @@
                 android:text="리뷰 관리"
                 android:textSize="25dp"
                 android:layout_gravity="center"
-                android:gravity="center_vertical"
+                android:gravity="center"
+                android:textColor="@android:color/white"
                 android:padding="10dp"/>
             <Button
                 android:id="@+id/mypage_btn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/ic_baseline_person_24"/>
+                android:background="@drawable/ic_baseline_person_24_white"/>
         </LinearLayout>
         <!--review item-->
         <LinearLayout
@@ -98,13 +100,6 @@
                     android:paddingLeft="10dp"
                     android:text="★★★★★"
                     android:textSize="15dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="2021-7-22" />
             </LinearLayout>
 
             <TextView
@@ -114,6 +109,13 @@
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="2021-7-22" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,13 +168,6 @@
                     android:paddingLeft="10dp"
                     android:text="★★★★★"
                     android:textSize="15dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:text="2021-6-22" />
             </LinearLayout>
 
             <TextView
@@ -182,6 +177,13 @@
                 android:padding="10dp"
                 android:text="리뷰 내용"
                 android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="2021-7-22" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -245,9 +247,9 @@
                 android:text="리뷰 삭제"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="125dp"
+                android:layout_height="145dp"
                 android:background="@drawable/empty_shape_line_basic"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="65dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"/>
             <TextView
