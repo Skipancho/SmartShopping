@@ -62,8 +62,10 @@ public class GridAdapter extends BaseAdapter {
         priceText.setText(productList.get(i).getPrice()+"원");
         final Bitmap[] bitmap = new Bitmap[getCount()];
         final String pCode = productList.get(i).getpCode();
+        String url = "https://ctg1770.cafe24.com/SC/image/"+pCode+".jpg";
+        new ImageLoadTask(url,imageView).execute();
 
-        Thread mThread = new Thread(){
+        /*Thread mThread = new Thread(){
             @Override
             public void run(){
                 try {
@@ -88,7 +90,7 @@ public class GridAdapter extends BaseAdapter {
             imageView.setImageBitmap(bitmap[i]);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
         v.setTag(productList.get(i).getpCode());
         /*TranslateAnimation translateAnimation = new TranslateAnimation(300, 0, 0, 0);

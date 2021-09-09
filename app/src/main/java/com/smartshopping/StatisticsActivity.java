@@ -39,7 +39,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class StatisticsActivity extends AppCompatActivity {
     private User user = MainActivity.user;
     private PieChart pieChart;
-    private int[] colorArray = new int[] {Color.LTGRAY,Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW};
+    //private int[] colorArray = new int[] {Color.LTGRAY,Color.BLUE,Color.RED,Color.GREEN,Color.YELLOW};
+    private int[] colorArray = new int[] {0xffef9a9a,0xffffe082,0xffc5e1a5,0xff80cbc4,0xffb39ddb,0xff9fa8da,0xffffcc80,0xffce93d8};
     private ArrayList<Entry> dataVal = new ArrayList<>();
     private ArrayList<PurData> dataArray = new ArrayList<>();
     private TextView spend_text;
@@ -191,7 +192,7 @@ public class StatisticsActivity extends AppCompatActivity {
         pieDataSet.setColors(colorArray);
         PieData pieData = new PieData(labels,pieDataSet);
         pieChart.setUsePercentValues(true);
-        pieData.setValueTextSize(25);
+        pieData.setValueTextSize(20);
         pieChart.setCenterText("지출 유형");
         pieChart.setCenterTextSize(25);
         pieChart.setHoleRadius(30);
@@ -206,6 +207,9 @@ public class StatisticsActivity extends AppCompatActivity {
         public PurData(String type, int price){
             this.type = type;
             this.price = price;
+        }
+        public int getPrice(){
+            return price;
         }
     }
     class PurDataAdapter extends BaseAdapter{
