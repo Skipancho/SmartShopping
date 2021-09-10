@@ -85,6 +85,15 @@ public class UserInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
+        //비밀번호 변경
+        findViewById(R.id.pw_change_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserInfoActivity.this,ChangePwActivity.class);
+                intent.putExtra("userID",user.getUserID());
+                startActivity(intent);
+            }
+        });
     }
 
     public void ValidateNick(String nickName){

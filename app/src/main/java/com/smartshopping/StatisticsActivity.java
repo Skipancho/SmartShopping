@@ -183,11 +183,18 @@ public class StatisticsActivity extends AppCompatActivity {
         spend_text.setText(sum+"원");
         //System.out.println("sum : "+sum);
         int i = 0;
+        double etc = 0;
         for(PurData p : dataArray){
             double rate = ((int)((p.price/(double)sum)*10000))/100.0;
-            dataVal.add(new Entry((float) rate, i++));
-            labels.add(p.type);
+            if(rate >= 5.0){
+                dataVal.add(new Entry((float) rate, i++));
+                labels.add(p.type);
+            }else{
+                etc += rate;
+            }
         }
+        dataVal.add(new Entry((float)etc,i));
+        labels.add("기타");
         PieDataSet pieDataSet = new PieDataSet(dataVal,"");
         pieDataSet.setColors(colorArray);
         PieData pieData = new PieData(labels,pieDataSet);

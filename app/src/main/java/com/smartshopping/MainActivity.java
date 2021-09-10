@@ -382,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            int i = 0;
+            //int i = 0;
             while (running){
                 Token_Check(myToken);
                 try{

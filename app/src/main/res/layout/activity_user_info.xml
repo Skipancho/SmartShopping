@@ -132,6 +132,16 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/btn_shape_no_line"/>
     <Button
+        android:id="@+id/pw_change_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/empty_shape_line"
+        android:text="비밀번호 변경"/>
+    <Button
         android:id="@+id/finishBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
