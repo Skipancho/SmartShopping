@@ -127,7 +127,7 @@ public class CameraFragment extends Fragment {
         });
 
         initClassifier();
-
+        //상품 조회 버튼
         p_inq_Btn = getView().findViewById(R.id.p_Inq);
         p_inq_Btn.setOnClickListener(new View.OnClickListener() {
             @Override

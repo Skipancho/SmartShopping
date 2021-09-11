@@ -193,13 +193,15 @@ public class StatisticsActivity extends AppCompatActivity {
                 etc += rate;
             }
         }
-        dataVal.add(new Entry((float)etc,i));
-        labels.add("기타");
+        if(etc > 0){
+            dataVal.add(new Entry((float)etc,i));
+            labels.add("기타");
+        }
         PieDataSet pieDataSet = new PieDataSet(dataVal,"");
         pieDataSet.setColors(colorArray);
         PieData pieData = new PieData(labels,pieDataSet);
         pieChart.setUsePercentValues(true);
-        pieData.setValueTextSize(20);
+        pieData.setValueTextSize(15);
         pieChart.setCenterText("지출 유형");
         pieChart.setCenterTextSize(25);
         pieChart.setHoleRadius(30);
