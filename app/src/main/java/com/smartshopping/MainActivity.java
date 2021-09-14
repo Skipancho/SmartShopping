@@ -382,12 +382,12 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            int i = 0;
+            //int i = 0;
             while (running){
                 Token_Check(myToken);
                 try{
                     this.sleep(3000);
-                    System.out.println("running"+(i++));
+                    //System.out.println("running"+(i++));
                 }catch (Exception e){
                     e.printStackTrace();
                 }
