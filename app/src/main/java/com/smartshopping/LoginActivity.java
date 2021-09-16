@@ -56,6 +56,10 @@ public class LoginActivity extends AppCompatActivity {
         idText = findViewById(R.id.idText);
         passwordText = findViewById(R.id.passwordText);
         autoLogin = findViewById(R.id.autoLogin);
+        Button loginBtn = findViewById(R.id.loginBtn);
+        TextView registerBtn = findViewById(R.id.registerBtn);
+        TextView findIDBtn = findViewById(R.id.findIDBtn);
+        TextView findPWBtn = findViewById(R.id.findPWBtn);
 
         //idText.setFilters(new InputFilter[]{filter});
 
@@ -73,8 +77,6 @@ public class LoginActivity extends AppCompatActivity {
                 UserLogin(userID,userPassword);
         }
 
-        Button loginBtn = findViewById(R.id.loginBtn);
-        TextView registerBtn = findViewById(R.id.registerBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,14 +85,14 @@ public class LoginActivity extends AppCompatActivity {
                 UserLogin(userID,userPassword);
             }
         });
-       registerBtn.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 LoginActivity.this.startActivity(intent);
             }
         });
-        TextView findIDBtn = findViewById(R.id.findIDBtn);
+
         findIDBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(intent);
             }
         });
-        TextView findPWBtn = findViewById(R.id.findPWBtn);
+
         findPWBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void UserLogin(String id, String pw){
+    public void UserLogin(final String id, final String pw){
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -123,8 +125,8 @@ public class LoginActivity extends AppCompatActivity {
                         String token = jsonResponse.getString("token");
                         if(autoLogin.isChecked()){
                             SharedPreferences.Editor editor= loginInfo.edit();
-                            editor.putString("inputID",userID);
-                            editor.putString("inputPassword",userPassword);
+                            editor.putString("inputID",id);
+                            editor.putString("inputPassword",pw);
                             editor.commit();
                         }else{
                             SharedPreferences.Editor editor= loginInfo.edit();
@@ -132,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.commit();
                         }
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("userID",userID);
+                        intent.putExtra("userID",id);
                         intent.putExtra("phoneNum",phoneNo);
                         intent.putExtra("name",userName);
                         intent.putExtra("nickName",nickName);
@@ -152,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         };
-        LoginRequest loginRequest = new LoginRequest(userID,userPassword,token_key,responseListener);
+        LoginRequest loginRequest = new LoginRequest(id,pw,token_key,responseListener);
         RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
         queue.add(loginRequest);
     }
@@ -161,12 +163,14 @@ public class LoginActivity extends AppCompatActivity {
         if(size > 0) {
             char[] tmp = new char[size];
             for(int i=0; i<tmp.length; i++) {
-                int div = (int) Math.floor( Math.random() * 2 );
+                int div = (int) Math.floor( Math.random() * 3 );
 
                 if(div == 0) { // 0이면 숫자로
                     tmp[i] = (char) (Math.random() * 10 + '0') ;
-                }else { //1이면 알파벳
+                }else if(div == 1) { //1이면 알파벳 대문자
                     tmp[i] = (char) (Math.random() * 26 + 'A') ;
+                }else{ //2이면 알파벳 소문자
+                    tmp[i] = (char) (Math.random() * 26 + 'a') ;
                 }
             }
             return new String(tmp);
