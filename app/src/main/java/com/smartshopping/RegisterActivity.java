@@ -169,7 +169,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void ValidateID(String id){
         if(id.length()<6||id.length()>12){
             AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-            dialog = builder.setMessage("아이디를 확인해주세요.\n6 ~ 20자의 영문 대소문자 및 숫자만 사용 가능합니다.")
+            dialog = builder.setMessage("아이디를 확인해주세요.\n6 ~ 12자의 영문 대소문자 및 숫자만 사용 가능합니다.")
                     .setNegativeButton("확인",null)
                     .create();
             dialog.show();
