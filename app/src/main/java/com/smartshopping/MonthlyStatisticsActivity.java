@@ -91,21 +91,27 @@ public class MonthlyStatisticsActivity extends AppCompatActivity {
                     spend_data[i] = 0;
                 }
                 year = year_spin.getSelectedItem().toString();
-                new BackgroundTask().execute();
+                new BackgroundTask(year).execute();
             }
         });
 
-        new BackgroundTask().execute();
+        new BackgroundTask(year).execute();
     }
 
     class BackgroundTask extends AsyncTask<Void,Void,String> {
 
         String target;
+        String mYear;
+
+        public BackgroundTask(String year){
+            this.mYear = year;
+        }
+
         @Override
         protected void onPreExecute(){
             try {
                 target="https://ctg1770.cafe24.com/SC/S_C_PurchaseCal_month.php?userID="+ URLEncoder.encode(user.getUserID(),"UTF-8")
-                        +"&year="+URLEncoder.encode(year,"UTF-8");
+                        +"&year="+URLEncoder.encode(mYear,"UTF-8");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -186,9 +192,5 @@ public class MonthlyStatisticsActivity extends AppCompatActivity {
             stat_text.setText("총 지출액 : "+sum + "원");
             stat_text.append("\n월 평균 지출액 : "+avg+"원");
         }
-
-
-
-
     }
 }

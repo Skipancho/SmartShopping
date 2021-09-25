@@ -176,7 +176,7 @@ public class SearchActivity extends AppCompatActivity {
                 BeforeSearch();
             }
         });
-
+        //grid 형식으로 보기
         findViewById(R.id.to_grid_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -184,6 +184,7 @@ public class SearchActivity extends AppCompatActivity {
                 search_gv.setVisibility(View.VISIBLE);
             }
         });
+        //list 형식으로 보기
         findViewById(R.id.to_list_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -352,19 +353,16 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getResult(){
         List<Classifier.Recognition> results = classifier.recognizeImage(bitmap);
-        float sum = 0;
+
         for(Classifier.Recognition recognition : results){
-           // System.out.println(recognition.getTitle()+" : "+recognition.getConfidence());
-            sum += recognition.getConfidence();
             if(recognition.getConfidence()>=0.1){
                 new ProductSearching(recognition.getTitle()).execute();
             }
         }
         AfterSearch();
-        //System.out.println("total :"+sum);
     }
 
-    void initClassifier(){
+    private void initClassifier(){
         try{
             classifier = new Classifier(SearchActivity.this,"model.tflite","labels.txt");
         }catch (Exception e){
@@ -379,7 +377,7 @@ public class SearchActivity extends AppCompatActivity {
         if(requestCode==12 && resultCode==RESULT_OK && data!=null) {
             imageuri = data.getData();
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageuri);//☆☆☆
                 s_img.setImageBitmap(bitmap);
                 isImageSearch = true;
                 s_img_ll.setVisibility(View.VISIBLE);

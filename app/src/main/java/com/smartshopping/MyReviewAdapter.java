@@ -95,9 +95,6 @@ public class MyReviewAdapter extends BaseAdapter {
                 dialog.show();
             }
         });
-
-
-
         v.setTag(reviewList.get(i).getText());
         return v;
     }

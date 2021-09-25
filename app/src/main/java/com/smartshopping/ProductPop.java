@@ -94,13 +94,11 @@ public class ProductPop extends AppCompatActivity {
                 info_btn.setTextColor(getResources().getColor(R.color.colorItemSelected));
                 info_bar.setVisibility(View.VISIBLE);
 
-                //상세설명 -> 리뷰로 전환
+                //리뷰 -> 상세설명으로 전환
                 review_frame.setVisibility(View.GONE);
                 pInfoText.setVisibility(View.VISIBLE);
             }
         });
-
-
 
         pNameText.setSelected(true);
 
@@ -188,7 +186,7 @@ public class ProductPop extends AppCompatActivity {
             }
         });
     }
-    public  void setList(String key, List<Product_Item> productList){
+    public void setList(String key, List<Product_Item> productList){
         key = MainActivity.user.getUserID() + key;
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = preferences.edit();

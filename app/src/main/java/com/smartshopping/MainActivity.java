@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     private GridAdapter gridAdapter;
     private Search_ProductAdapter listAdapter;
-    private LinearLayout main_layout, tutorial_ll;
+    private LinearLayout main_layout;
     private RelativeLayout fragment;
     private TextView header_text;
 
@@ -111,11 +111,9 @@ public class MainActivity extends AppCompatActivity {
         main_layout = findViewById(R.id.main_layout);
         fragment = findViewById(R.id.fragment);
         b_navi = findViewById(R.id.bottomNavi);
-        tutorial_ll =(LinearLayout) findViewById(R.id.tutorial_ll);
 
         search_gv = findViewById(R.id.search_grid);
         search_lv = findViewById(R.id.search_list);
-
 
         gridAdapter = new GridAdapter(MainActivity.this,searchList);
         listAdapter = new Search_ProductAdapter(MainActivity.this,searchList);
@@ -139,13 +137,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         new ProductSearching().execute();
-
-        tutorial_ll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tutorial_ll.setVisibility(View.GONE);
-            }
-        });
 
         findViewById(R.id.mypage_btn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,7 +292,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Token_Check(String token){
-
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

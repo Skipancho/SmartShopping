@@ -132,9 +132,9 @@ public class PurchaseListInqury extends AppCompatActivity {
                         p = new PurchaseProduct(pCode,pName,price,amount,bDate,review,pkey);
                     }
                     purchaseProducts.add(p);
-                    adapter.notifyDataSetChanged();
                     count++;
                 }
+                adapter.notifyDataSetChanged();
             }catch (Exception e){
                 e.printStackTrace();
             }
