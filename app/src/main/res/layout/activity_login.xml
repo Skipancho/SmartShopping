@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <ImageView
+        <!--<ImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:src="@drawable/logo_text"
@@ -24,7 +24,12 @@
             android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:src="@drawable/shopping"
-            />
+            />-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login_logo"/>
 
         <EditText
             android:id="@+id/idText"
