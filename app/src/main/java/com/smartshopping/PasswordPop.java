@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class PasswordPop extends AppCompatActivity {
 
-    private String userId = MainActivity.user.getUserID();
+    private final String userId = MainActivity.user.getUserID();
     private EditText pwText;
     private AlertDialog dialog;
 

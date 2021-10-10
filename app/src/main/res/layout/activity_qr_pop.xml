@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".QR_pop">
+    <ImageView
+        android:id="@+id/qr_iv"
+        android:layout_width="300dp"
+        android:layout_height="300dp"/>
+    <Button
+        android:id="@+id/finish_btn"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:text="닫기"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:background="@drawable/blue_shape_line"/>
+</LinearLayout>

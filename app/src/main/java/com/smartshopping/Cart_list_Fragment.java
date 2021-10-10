@@ -1,6 +1,8 @@
 package com.smartshopping;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -31,16 +33,15 @@ import java.util.Date;
 import java.util.List;
 
 public class Cart_list_Fragment extends Fragment {
-    private ListView product_lv;
     private Product_Item_Adapter adapter;
     private static TextView price_Text, no_item;
     private AlertDialog dialog;
-    private User user = MainActivity.user;
+    private final User user = MainActivity.user;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        product_lv = getView().findViewById(R.id.cartList);
+        ListView product_lv = getView().findViewById(R.id.cartList);
         adapter = new Product_Item_Adapter(getContext(),MainActivity.productList);
         //MainActivity.productList.add(new Product_Item("12345","테스트",1500,1,"cart"));
         product_lv.setAdapter(adapter);
@@ -62,7 +63,9 @@ public class Cart_list_Fragment extends Fragment {
                                     Toast.makeText(getContext(),"장바구니에 상품이 없습니다.",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                AddPurchase();
+                                //AddPurchase();
+                                Intent intent = new Intent(getActivity(),QR_pop.class);
+                                startActivityForResult(intent,77);
                             }
                         })
                         .setNegativeButton("취소",null)
@@ -141,5 +144,13 @@ public class Cart_list_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart_list_, container, false);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 77  && resultCode == Activity.RESULT_OK){
+            AddPurchase();
+        }
     }
 }

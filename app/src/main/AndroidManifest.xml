@@ -14,12 +14,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".TutorialActivity" ></activity>
+        <activity
+            android:name=".QR_pop"
+            android:exported="true" />
+        <activity android:name=".TutorialActivity" />
         <activity
             android:name=".SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,35 +31,50 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WithdrawalActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ChangePwActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FindPwActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".FindIdActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MonthlyStatisticsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".StatisticsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".UserInfoActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PasswordPop"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ProductPop"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ReviewActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".PurchaseListInqury"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyPageActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".LoginActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".WithdrawalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ChangePwActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FindPwActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FindIdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MonthlyStatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".StatisticsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PasswordPop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductPop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PurchaseListInqury"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
