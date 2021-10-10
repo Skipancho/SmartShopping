@@ -18,7 +18,6 @@ public class PurchaseRequest extends StringRequest {
         parameters.put("price",""+price);
         parameters.put("amount",""+amount);
         parameters.put("bDate",bDate);
-
     }
 
     @Override
