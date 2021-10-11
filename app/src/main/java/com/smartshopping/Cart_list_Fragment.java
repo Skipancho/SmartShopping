@@ -43,11 +43,12 @@ public class Cart_list_Fragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         ListView product_lv = getView().findViewById(R.id.cartList);
         adapter = new Product_Item_Adapter(getContext(),MainActivity.productList);
-        //MainActivity.productList.add(new Product_Item("12345","테스트",1500,1,"cart"));
+
         product_lv.setAdapter(adapter);
 
         no_item = getView().findViewById(R.id.no_cart_text);
         price_Text = getView().findViewById(R.id.totalPrice);
+        price_Text.setSelected(true);
         totalCal_cart();
 
         Button buyBtn = getView().findViewById(R.id.buyBtn);

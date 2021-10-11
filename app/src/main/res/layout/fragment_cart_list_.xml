@@ -54,6 +54,8 @@
                 android:gravity="right"
                 android:text="총액 : 5000 원"
                 android:textSize="25dp"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>

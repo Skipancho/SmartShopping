@@ -4,12 +4,15 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/drawable-v24/ic_baseline_settings_24.xml" value="0.1284722222222222" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/drawable-v24/red_shape_no_line.xml" value="0.22083333333333333" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_change_pw.xml" value="0.1" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_find_id.xml" value="0.18888888888888888" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_login.xml" value="0.16" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_qr_pop.xml" value="0.16" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_qr_pop.xml" value="0.22" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/fragment_cart_list_.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/product_item.xml" value="0.1" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/product_pop.xml" value="0.23511705685618728" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/purchase_item.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/review.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/search_item_grid.xml" value="0.1" />
