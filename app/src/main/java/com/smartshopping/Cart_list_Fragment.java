@@ -90,7 +90,7 @@ public class Cart_list_Fragment extends Fragment {
         }
     }
     public void AddPurchase(){
-        long now = System.currentTimeMillis();
+        /*long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
         String bDate = mFormat.format(date);
@@ -113,7 +113,7 @@ public class Cart_list_Fragment extends Fragment {
             int price = p.getPrice()*p.getAmount();
             PurchaseRequest request = new PurchaseRequest(user.getUserID(),p.getpCode(),price,p.getAmount(),bDate,responseListener);
             queue.add(request);
-        }
+        }*/
         MainActivity.productList.clear();
         MainActivity.checkList.clear();
         setList("cartList",MainActivity.productList);
