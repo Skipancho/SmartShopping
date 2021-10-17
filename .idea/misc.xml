@@ -11,12 +11,17 @@
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/activity_qr_pop.xml" value="0.22" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/fragment_cart_list_.xml" value="0.1" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/fragment_check_list_.xml" value="0.23210702341137124" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/product_item.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/product_pop.xml" value="0.23511705685618728" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/purchase_item.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/review.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/search_item_grid.xml" value="0.1" />
         <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/search_item_list.xml" value="0.1" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/widget.xml" value="0.18" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/layout/widget_provider.xml" value="0.23445945945945945" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/xml/widget.xml" value="0.23445945945945945" />
+        <entry key="..\:/appmake/SmartShopping/app/src/main/res/xml/widget_provider_5x5.xml" value="0.23445945945945945" />
       </map>
     </option>
   </component>
