@@ -93,7 +93,7 @@ public class Cart_list_Fragment extends Fragment {
         /*long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String bDate = mFormat.format(date);
+        String bDate = mFormat.format(date);*/
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -111,9 +111,10 @@ public class Cart_list_Fragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         for(Product p : MainActivity.productList){
             int price = p.getPrice()*p.getAmount();
-            PurchaseRequest request = new PurchaseRequest(user.getUserID(),p.getpCode(),price,p.getAmount(),bDate,responseListener);
+            //PurchaseRequest request = new PurchaseRequest(user.getUserID(),p.getpCode(),price,p.getAmount(),bDate,responseListener);
+            PurchaseRequest request = new PurchaseRequest(user.getUserID(),p.getpCode(),price,p.getAmount(),responseListener);
             queue.add(request);
-        }*/
+        }
         MainActivity.productList.clear();
         MainActivity.checkList.clear();
         setList("cartList",MainActivity.productList);
