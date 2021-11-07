@@ -35,7 +35,7 @@
         <td>상품 정보 조회</td>
         <td>내용</td>
     </tr>
-     <tr>
+    <tr>
         <td rowspan="4">체크리스트</td>
         <td>리스트 작성</td>
         <td>내용</td>
@@ -52,6 +52,54 @@
         <td>리스트 확인</td>
         <td>내용</td>
     </tr>
+    <tr>
+        <td rowspan="4">장바구니</td>
+        <td>장바구니 추가</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>장바구니 삭제</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>장바구니 총액 계산</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>장바구니 확인</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td rowspan="4">리뷰 관리</td>
+        <td>리뷰 조회</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>리뷰 작성</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>리뷰 삭제</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>리뷰 수정</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td rowspan="3">지출 통계</td>
+        <td>구매 내역 저장</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>구매 내역 조회</td>
+        <td>내용</td>
+    </tr>
+    <tr>
+        <td>지출 분석</td>
+        <td>내용</td>
+    </tr>
+
 </table>
 
 
