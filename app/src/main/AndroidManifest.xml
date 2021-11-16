@@ -15,15 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".QR_pop"
+            android:name=".main.QR_pop"
             android:exported="true" />
-        <activity android:name=".TutorialActivity" />
+        <activity android:name=".intro.TutorialActivity" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".product.SearchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".intro.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,49 +32,49 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".WithdrawalActivity"
+            android:name=".user.WithdrawalActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ChangePwActivity"
+            android:name=".user.signup.ChangePwActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FindPwActivity"
+            android:name=".user.signin.FindPwActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FindIdActivity"
+            android:name=".user.signin.FindIdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".user.signup.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MonthlyStatisticsActivity"
+            android:name=".mypage.statistics.MonthlyStatisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".StatisticsActivity"
+            android:name=".mypage.statistics.StatisticsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".UserInfoActivity"
+            android:name=".user.UserInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PasswordPop"
+            android:name=".user.signin.PasswordPop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProductPop"
+            android:name=".product.ProductPop"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReviewActivity"
+            android:name=".main.review.ReviewActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PurchaseListInqury"
+            android:name=".mypage.PurchaseListInqury"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyPageActivity"
+            android:name=".mypage.MyPageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".user.signin.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

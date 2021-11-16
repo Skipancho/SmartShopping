@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:layout_marginLeft="30dp"
     android:layout_marginRight="30dp"
-    tools:context=".Cart_list_Fragment">
+    tools:context=".main.Cart_list_Fragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

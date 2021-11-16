@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Check_list_Fragment">
+    tools:context=".main.Check_list_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
