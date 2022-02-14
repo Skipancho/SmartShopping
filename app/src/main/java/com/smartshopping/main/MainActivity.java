@@ -10,6 +10,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -52,6 +53,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     public static Activity main;
     public static User user;
     public static String myToken = null;
+    public static HashMap<String, Bitmap> imageCache = new HashMap<>();
     private BottomNavigationView b_navi;
     private List<SearchProduct> searchList = new ArrayList<>();
     private ListView search_lv;

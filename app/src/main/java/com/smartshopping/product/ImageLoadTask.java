@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
+import com.smartshopping.main.MainActivity;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
@@ -15,8 +17,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
     private String urlStr;
     private ImageView imageView;
-
-    private static HashMap<String, Bitmap> bitmapHash = new HashMap<String, Bitmap>();
 
     public ImageLoadTask(String urlStr, ImageView imageView){
         this.urlStr = urlStr;
@@ -31,7 +31,9 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... voids) {
         Bitmap bitmap = null;
-
+        if (MainActivity.imageCache.containsKey(urlStr)){
+            return MainActivity.imageCache.get(urlStr);
+        }
         try {
             URL url = new URL(urlStr);
             HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
@@ -41,11 +43,10 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
             InputStream inputStream = con.getInputStream();
             bitmap = BitmapFactory.decodeStream(inputStream);
 
-            bitmapHash.put(urlStr, bitmap);
+            MainActivity.imageCache.put(urlStr, bitmap);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bitmap;
     }
 
